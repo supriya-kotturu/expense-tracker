@@ -18,7 +18,7 @@ code {
 }
 
 .expense-itm-container {
-  @apply grid grid-flow-col grid-cols-3 gap-4 items-center justify-items-center p-2 m-3 bg-medium-001 rounded-lg;
+  @apply grid grid-flow-col grid-cols-3 gap-2 items-center justify-items-center py-4 px-2 m-3 bg-medium-001 rounded-lg;
 }
 
 .card {

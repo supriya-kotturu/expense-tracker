@@ -8,8 +8,10 @@ const ExpenseItem = ({ date, title, amount }) => {
     <Fragment>
       <div className="expense-itm-container">
         <ExpenseDate date={date} />
-        <h1 className="text-2xl text-white-002">{title}</h1>
-        <p className="card p-3 bg-dark-002 text-xl font-bold">${amount}</p>
+        <h1 className="text-2xl text-white-002 justify-self-start">{title}</h1>
+        <p className="card p-3 w-28 bg-dark-002 text-center text-xl font-bold">
+          ${amount}
+        </p>
       </div>
     </Fragment>
   );
