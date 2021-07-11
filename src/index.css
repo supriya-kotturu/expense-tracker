@@ -9,9 +9,18 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #0b132b;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.expense-itm-container {
+  @apply grid grid-flow-col grid-cols-3 gap-4 items-center justify-items-center p-2 m-3 bg-medium-001 rounded-lg;
+}
+
+.card {
+  @apply border-2 border-white-002 rounded-xl shadow-2xl;
 }
