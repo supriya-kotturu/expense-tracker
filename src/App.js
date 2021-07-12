@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import ExpenseList from "./components/ExpenseList";
+import ExpenseForm from "./components/ExpenseForm";
 function App() {
   const [expenses, setExpenses] = useState([
     {
@@ -11,7 +12,7 @@ function App() {
     {
       title: "Zomato Orders",
       date: new Date(2021, 6, 11),
-      amount: 125,
+      amount: 125445.55,
     },
     {
       title: "Cab",
@@ -32,6 +33,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header font-serif text-secondary">
+        <ExpenseForm />
         <ExpenseList expenses={expenses} />
       </header>
     </div>
