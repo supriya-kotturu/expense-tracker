@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ExpenseItem from "./ExpenseItem";
 const ExpenseList = ({ expenses }) => {
   return (
-    <div className="lg:w-1/2 md:w-3/4  mx-auto p-6">
+    <div className="main-container bg-dark-002 rounded-xl p-2">
       {expenses.map((item, index) => (
         <ExpenseItem
           key={index}
