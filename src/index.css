@@ -28,3 +28,15 @@ code {
 .main-container {
   @apply lg:w-1/2 md:w-3/4 mx-auto p-6;
 }
+
+.select-container {
+  @apply flex justify-between items-center;
+}
+
+.select-heading {
+  @apply font-bold text-lg;
+}
+
+.select-dropdown {
+  @apply text-primary h-8 w-24 m-2 rounded-md text-center font-bold;
+}
