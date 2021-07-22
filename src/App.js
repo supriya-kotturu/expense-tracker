@@ -1,4 +1,5 @@
 import { useState } from "react";
+import uuid from "react-uuid";
 
 import ExpenseList from "./components/ExpenseList";
 import ExpenseForm from "./components/ExpenseForm";
@@ -30,10 +31,19 @@ function App() {
       amount: 60,
     },
   ]);
+
+  const handleSaveNewExpense = (expense) => {
+    const newExpense = {
+      ...expense,
+      id: uuid(),
+    };
+    setExpenses([...expenses, newExpense]);
+  };
+
   return (
     <div className="App">
       <header className="App-header font-serif text-secondary">
-        <ExpenseForm />
+        <ExpenseForm onSaveNewExpense={handleSaveNewExpense} />
         <ExpenseList expenses={expenses} />
       </header>
     </div>

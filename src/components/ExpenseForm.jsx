@@ -1,7 +1,8 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 import FormInput from "./UI/FormInput";
-const ExpenseForm = () => {
+const ExpenseForm = ({ onSaveNewExpense }) => {
   const [userInput, setUserInput] = useState({
     expenseTitle: "",
     expenseAmount: "",
@@ -29,8 +30,35 @@ const ExpenseForm = () => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { expenseAmount, expenseDate, expenseTitle } =
+      userInput.expenseDate &&
+      userInput.expenseTitle &&
+      userInput.expenseAmount &&
+      userInput;
+
+    const expenseData = {
+      title: expenseTitle,
+      amount: expenseAmount,
+      date: new Date(expenseDate),
+    };
+
+    onSaveNewExpense(expenseData);
+
+    console.log(expenseData);
+    setUserInput({
+      expenseTitle: "",
+      expenseAmount: "",
+      expenseDate: "",
+    });
+  };
+
   return (
-    <form className=" main-container md:grid md:grid-flow-row justify-items-left grid-cols-2 gap-4 bg-dark-002 rounded-xl my-6 p-6">
+    <form
+      className=" main-container md:grid md:grid-flow-row justify-items-left grid-cols-2 gap-4 bg-dark-002 rounded-xl my-6 p-6"
+      onSubmit={handleSubmit}
+    >
       <FormInput
         label="Title"
         name="title"
@@ -64,6 +92,10 @@ const ExpenseForm = () => {
       </button>
     </form>
   );
+};
+
+ExpenseForm.propTypes = {
+  onSaveNewExpense: PropTypes.func,
 };
 
 export default ExpenseForm;
