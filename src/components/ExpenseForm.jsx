@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 import FormInput from "./UI/FormInput";
-const ExpenseForm = ({ onSaveNewExpense }) => {
+const ExpenseForm = ({ onSaveNewExpense, onCancelForm }) => {
   const [userInput, setUserInput] = useState({
     expenseTitle: "",
     expenseAmount: "",
@@ -40,7 +40,7 @@ const ExpenseForm = ({ onSaveNewExpense }) => {
 
     const expenseData = {
       title: expenseTitle,
-      amount: expenseAmount,
+      amount: parseInt(expenseAmount),
       date: new Date(expenseDate),
     };
 
@@ -84,18 +84,29 @@ const ExpenseForm = ({ onSaveNewExpense }) => {
         min="2019-01-01"
         max={new Date(new Date()).getDate() + 1}
       />
-      <button
-        className="bg-color-001 font-bold text-xl h-12 mx-auto self-end  px-3  m-2 rounded-lg text-primary "
-        type="submit"
-      >
-        SUBMIT
-      </button>
+      <span className="mx-auto self-end">
+        <button
+          className="px-3 m-2 border-2 border-white-002 text-white-002 rounded-lg font-bold text-xl h-12 hover:bg-primary hover:text-color-001"
+          type="button"
+          onClick={onCancelForm}
+        >
+          Cancel
+        </button>
+
+        <button
+          className="bg-color-002 border-2 border-color-002 px-3 m-2 text-primary rounded-lg font-bold text-xl h-12 hover:bg-primary hover:text-color-002 hover:border-2 hover:border-white-002"
+          type="submit"
+        >
+          Submit
+        </button>
+      </span>
     </form>
   );
 };
 
 ExpenseForm.propTypes = {
   onSaveNewExpense: PropTypes.func,
+  onCancelForm: PropTypes.func,
 };
 
 export default ExpenseForm;

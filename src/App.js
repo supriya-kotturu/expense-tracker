@@ -32,18 +32,54 @@ function App() {
     },
   ]);
 
+  const [formStatus, setFormStatus] = useState(false);
+
   const handleSaveNewExpense = (expense) => {
     const newExpense = {
       ...expense,
       id: uuid(),
     };
-    setExpenses([...expenses, newExpense]);
+
+    setExpenses((previousExpenses) => [newExpense, ...previousExpenses]);
   };
+
+  const handleCancelForm = () => {
+    setFormStatus((previousFormStatus) => !previousFormStatus);
+  };
+
+  const handleShowForm = () => {
+    setFormStatus(true);
+  };
+
+  const formContentClassNames = `main-container my-4 bg-medium-001 justify-center flex rounded-md text-white-001 ${
+    formStatus && "hidden"
+  }`;
+
+  let formContent = (
+    <div className={formContentClassNames}>
+      <button
+        type="button"
+        className="mx-auto bg-primary rounded-md p-3 text-lg font-bold text-white-001"
+        onClick={handleShowForm}
+      >
+        Add New Expense
+      </button>
+    </div>
+  );
+
+  if (formStatus) {
+    formContent = (
+      <ExpenseForm
+        onSaveNewExpense={handleSaveNewExpense}
+        onCancelForm={handleCancelForm}
+      />
+    );
+  }
 
   return (
     <div className="App">
       <header className="App-header font-serif text-secondary">
-        <ExpenseForm onSaveNewExpense={handleSaveNewExpense} />
+        {formContent}
         <ExpenseList expenses={expenses} />
       </header>
     </div>
