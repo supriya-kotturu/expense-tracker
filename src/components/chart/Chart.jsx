@@ -3,13 +3,19 @@ import PropTypes from "prop-types";
 
 import ChartBar from "./ChartBar";
 const Chart = ({ dataPoints }) => {
+  const dataPointValueArray = dataPoints.map((dataPoint) => dataPoint.value);
+  const totalMaxValue = Math.max(...dataPointValueArray);
+
   return (
-    <div className="chart main-container p-2 my-4 rounded-xl bg-dark-002 flex justify-around h-60">
-      {dataPoints.map(({ value, maxValue, label }, index) => (
-        <ChartBar key={index} value={value} maxValue={maxValue} label={label} />
+    <div className="chart">
+      {dataPoints.map(({ value, label }, index) => (
+        <ChartBar
+          key={index}
+          value={value}
+          maxValue={totalMaxValue}
+          label={label}
+        />
       ))}
-      <ChartBar />
-      <ChartBar />
     </div>
   );
 };

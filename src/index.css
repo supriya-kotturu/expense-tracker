@@ -41,6 +41,10 @@ code {
   @apply text-primary h-8 w-24 m-2 rounded-md text-center font-bold;
 }
 
+.chart {
+  @apply p-4 m-4 rounded-2xl bg-medium-001 flex justify-around h-60;
+}
+
 .chart-bar {
   @apply h-full flex flex-col items-center;
 }
