@@ -26,6 +26,8 @@ const ExpenseChart = ({ expenses }) => {
   return <Chart dataPoints={chartDataPoints} />;
 };
 
-ExpenseChart.propTypes = {};
+ExpenseChart.propTypes = {
+  expenses: PropTypes.array,
+};
 
 export default ExpenseChart;
