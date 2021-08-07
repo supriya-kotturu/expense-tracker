@@ -7,12 +7,9 @@ const ChartBar = ({ value, maxValue, label }) => {
     barFillHeight = Math.round((value / maxValue) * 100) + "%";
   }
   return (
-    <div className="chart-bar h-full w-3 flex flex-col items-center">
-      <div className=" chart-bar-inner h-full w-full border-1 border-primary rounded-xl bg-primary overflow-hidden flex flex-col justify-end ">
-        <div
-          className="chart-bar-fill bg-secondary"
-          style={{ height: "75%" }}
-        ></div>
+    <div className="chart-bar">
+      <div className=" chart-bar-inner">
+        <div className="chart-bar-fill" style={{ height: barFillHeight }}></div>
       </div>
       <div className="chart-bar-label">{label}</div>
     </div>
