@@ -3,6 +3,7 @@ import uuid from "react-uuid";
 
 import ExpenseList from "./components/ExpenseList";
 import ExpenseForm from "./components/ExpenseForm";
+import Chart from "./components/chart/Chart";
 function App() {
   const [expenses, setExpenses] = useState([
     {
@@ -80,6 +81,7 @@ function App() {
     <div className="App">
       <header className="App-header font-serif text-secondary">
         {formContent}
+        <Chart dataPoints={[]} />
         <ExpenseList expenses={expenses} />
       </header>
     </div>
