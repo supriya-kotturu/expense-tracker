@@ -40,3 +40,19 @@ code {
 .select-dropdown {
   @apply text-primary h-8 w-24 m-2 rounded-md text-center font-bold;
 }
+
+.chart-bar {
+  @apply h-full flex flex-col items-center;
+}
+
+.chart-bar-inner {
+  @apply h-full w-3 lg:w-4 border-2 border-dark-001 rounded-xl bg-primary overflow-hidden flex flex-col justify-end;
+}
+
+.chart-bar-fill {
+  @apply w-full transition-all ease-out duration-700 bg-secondary border-2 border-secondary;
+}
+
+.chart-bar-label {
+  @apply text-white-002;
+}

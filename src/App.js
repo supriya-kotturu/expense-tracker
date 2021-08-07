@@ -3,7 +3,6 @@ import uuid from "react-uuid";
 
 import ExpenseList from "./components/ExpenseList";
 import ExpenseForm from "./components/ExpenseForm";
-import Chart from "./components/chart/Chart";
 function App() {
   const [expenses, setExpenses] = useState([
     {
@@ -13,22 +12,22 @@ function App() {
     },
     {
       title: "Zomato Orders",
-      date: new Date(2021, 6, 11),
-      amount: 125445.55,
+      date: new Date(2021, 3, 11),
+      amount: 1254.55,
     },
     {
       title: "Cab",
-      date: new Date(2021, 6, 10),
+      date: new Date(2021, 7, 10),
       amount: 700,
     },
     {
       title: "Lunch",
-      date: new Date(2021, 6, 10),
+      date: new Date(2021, 2, 10),
       amount: 2400,
     },
     {
       title: "VadaPav",
-      date: new Date(2021, 6, 10),
+      date: new Date(2021, 5, 10),
       amount: 60,
     },
   ]);
@@ -60,7 +59,7 @@ function App() {
     <div className={formContentClassNames}>
       <button
         type="button"
-        className="mx-auto bg-primary rounded-md p-3 text-lg font-bold text-white-001"
+        className="mx-auto bg-primary rounded-md p-3 text-lg font-bold text-white-002"
         onClick={handleShowForm}
       >
         Add New Expense
@@ -81,7 +80,6 @@ function App() {
     <div className="App">
       <header className="App-header font-serif text-secondary">
         {formContent}
-        <Chart dataPoints={[]} />
         <ExpenseList expenses={expenses} />
       </header>
     </div>
