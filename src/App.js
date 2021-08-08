@@ -3,6 +3,7 @@ import uuid from "react-uuid";
 
 import ExpenseList from "./components/ExpenseList";
 import ExpenseForm from "./components/ExpenseForm";
+import ExpenseError from "./components/ExpenseError";
 function App() {
   const [expenses, setExpenses] = useState([
     {
@@ -32,6 +33,13 @@ function App() {
     },
   ]);
 
+  const [message, setMessage] = useState({
+    title: "",
+    description: "",
+    type: "",
+    showMessage: false,
+  });
+
   const [formStatus, setFormStatus] = useState(false);
 
   const handleSaveNewExpense = (expense) => {
@@ -49,6 +57,21 @@ function App() {
 
   const handleShowForm = () => {
     setFormStatus(true);
+  };
+
+  const handleErrorMessage = (message) => {
+    setMessage(message);
+  };
+
+  const handleCloseMessage = () => {
+    setMessage((previousMessage) => {
+      return {
+        title: "",
+        description: "",
+        type: "",
+        showMessage: !previousMessage.showMessage,
+      };
+    });
   };
 
   const formContentClassNames = `main-container my-4 bg-medium-001 justify-center flex rounded-md text-white-001 ${
@@ -70,6 +93,7 @@ function App() {
   if (formStatus) {
     formContent = (
       <ExpenseForm
+        onFormError={handleErrorMessage}
         onSaveNewExpense={handleSaveNewExpense}
         onCancelForm={handleCancelForm}
       />
@@ -79,6 +103,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header font-serif text-secondary">
+        <ExpenseError message={message} onCloseMessage={handleCloseMessage} />
         {formContent}
         <ExpenseList expenses={expenses} />
       </header>

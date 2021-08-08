@@ -1,0 +1,36 @@
+{
+  "noFormValuesError": {
+    "title": "Oop! Hang on there!",
+    "description": "Form inputs cannot be empty. Please enter the values before you hit submit.",
+    "type": "ERROR",
+    "showMessage": true
+  },
+
+  "noTitleError": {
+    "title": "Name it!",
+    "description": "Expense Title cannot be empty. Give a title before you submit your expense details.",
+    "type": "ERROR",
+    "showMessage": true
+  },
+
+  "noAmountError": {
+    "title": "Don't lie...",
+    "description": "Expense Amount cannot be empty. Enter the amount you spent before you submit you expense.",
+    "type": "ERROR",
+    "showMessage": true
+  },
+
+  "noDateError": {
+    "title": "When did this happen?",
+    "description": "Expense Date cannot be empty. Select an approximate date for your expense before you submit you expense.",
+    "type": "ERROR",
+    "showMessage": true
+  },
+
+  "clearFormError": {
+    "title": "",
+    "description": "",
+    "type": "",
+    "showMessage": false
+  }
+}
