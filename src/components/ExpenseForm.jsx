@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import FormInput from "./UI/FormInput";
 import errors from "../util/errors.json";
 import ExpenseDate from "./ExpenseDate";
+
 const ExpenseForm = ({ onSaveNewExpense, onCancelForm, onFormError }) => {
   const [userInput, setUserInput] = useState({
     expenseTitle: "",
