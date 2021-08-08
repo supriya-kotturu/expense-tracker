@@ -2,7 +2,9 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 
 import FormInput from "./UI/FormInput";
-const ExpenseForm = ({ onSaveNewExpense, onCancelForm }) => {
+import errors from "../util/errors.json";
+import ExpenseDate from "./ExpenseDate";
+const ExpenseForm = ({ onSaveNewExpense, onCancelForm, onFormError }) => {
   const [userInput, setUserInput] = useState({
     expenseTitle: "",
     expenseAmount: "",
@@ -32,11 +34,16 @@ const ExpenseForm = ({ onSaveNewExpense, onCancelForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { expenseAmount, expenseDate, expenseTitle } =
-      userInput.expenseDate &&
-      userInput.expenseTitle &&
-      userInput.expenseAmount &&
-      userInput;
+    const { expenseAmount, expenseDate, expenseTitle } = userInput;
+
+    if (!expenseAmount && !expenseDate && !expenseTitle)
+      onFormError(errors.noFormValuesError);
+    if (!expenseTitle && expenseAmount && expenseDate)
+      onFormError(errors.noTitleError);
+    else if (!expenseAmount && expenseTitle && ExpenseDate)
+      onFormError(errors.noAmountError);
+    else if (!expenseDate && expenseTitle && expenseAmount)
+      onFormError(errors.noDateError);
 
     const expenseData = {
       title: expenseTitle,
@@ -44,14 +51,17 @@ const ExpenseForm = ({ onSaveNewExpense, onCancelForm }) => {
       date: new Date(expenseDate),
     };
 
-    onSaveNewExpense(expenseData);
+    if (expenseTitle && expenseAmount && expenseDate) {
+      onSaveNewExpense(expenseData);
+      setUserInput({
+        expenseTitle: "",
+        expenseAmount: "",
+        expenseDate: "",
+      });
+      onFormError(errors.clearFormError);
+    }
 
     console.log(expenseData);
-    setUserInput({
-      expenseTitle: "",
-      expenseAmount: "",
-      expenseDate: "",
-    });
   };
 
   return (
@@ -107,6 +117,7 @@ const ExpenseForm = ({ onSaveNewExpense, onCancelForm }) => {
 ExpenseForm.propTypes = {
   onSaveNewExpense: PropTypes.func,
   onCancelForm: PropTypes.func,
+  onFormError: PropTypes.func,
 };
 
 export default ExpenseForm;
