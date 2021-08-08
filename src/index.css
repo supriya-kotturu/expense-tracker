@@ -42,7 +42,7 @@ code {
 }
 
 .chart {
-  @apply p-4 m-4 rounded-2xl bg-medium-001 flex justify-around h-60;
+  @apply p-4 m-3 rounded-lg bg-medium-001 flex justify-around h-60;
 }
 
 .chart-bar {
