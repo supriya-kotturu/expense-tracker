@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 
 const ChartBar = ({ value, maxValue, label }) => {
@@ -22,4 +22,4 @@ ChartBar.propTypes = {
   label: PropTypes.string,
 };
 
-export default ChartBar;
+export default memo(ChartBar);

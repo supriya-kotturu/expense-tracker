@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 
 const Select = ({
@@ -37,4 +37,4 @@ Select.propTypes = {
   handleDropdownChange: PropTypes.func,
 };
 
-export default Select;
+export default memo(Select);

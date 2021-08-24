@@ -1,3 +1,4 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 
 const FormInput = (props) => {
@@ -21,4 +22,4 @@ FormInput.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default FormInput;
+export default memo(FormInput);

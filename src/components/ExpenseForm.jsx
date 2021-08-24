@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import PropTypes from "prop-types";
 
 import FormInput from "./UI/FormInput";
@@ -121,4 +121,4 @@ ExpenseForm.propTypes = {
   onFormError: PropTypes.func,
 };
 
-export default ExpenseForm;
+export default memo(ExpenseForm);

@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 
 import Select from "./UI/Select";
@@ -28,4 +28,4 @@ ExpenseFilter.propTypes = {
   selected: PropTypes.string,
 };
 
-export default ExpenseFilter;
+export default memo(ExpenseFilter);

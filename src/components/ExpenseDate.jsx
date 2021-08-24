@@ -1,3 +1,4 @@
+import { memo } from "react";
 import PropTypes from "prop-types";
 import Card from "./UI/Card";
 
@@ -18,4 +19,4 @@ ExpenseDate.propTypes = {
   date: PropTypes.object,
 };
 
-export default ExpenseDate;
+export default memo(ExpenseDate);

@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 
 import Chart from "../components/chart/Chart";
@@ -19,7 +19,7 @@ const ExpenseChart = ({ expenses }) => {
   ];
 
   for (const expense of expenses) {
-    const expenseMonth = expense.date.getMonth(); // months start at 0
+    const expenseMonth = new Date(expense.date).getMonth(); // months start at 0
     chartDataPoints[expenseMonth].value += expense.amount;
   }
 
@@ -30,4 +30,4 @@ ExpenseChart.propTypes = {
   expenses: PropTypes.array,
 };
 
-export default ExpenseChart;
+export default memo(ExpenseChart);

@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, memo } from "react";
 import PropTypes from "prop-types";
 
 import ExpenseDate from "./ExpenseDate";
@@ -7,7 +7,7 @@ const ExpenseItem = ({ date, title, amount }) => {
   return (
     <Fragment>
       <div className="expense-itm-container">
-        <ExpenseDate date={date} />
+        <ExpenseDate date={new Date(date)} />
         <h1 className="md:text-2xl sm:text-lg text-white-002 justify-self-start">
           {title}
         </h1>
@@ -22,9 +22,9 @@ const ExpenseItem = ({ date, title, amount }) => {
 };
 
 ExpenseItem.propTypes = {
-  date: PropTypes.object,
+  date: PropTypes.string,
   title: PropTypes.string,
   amount: PropTypes.number,
 };
 
-export default ExpenseItem;
+export default memo(ExpenseItem);

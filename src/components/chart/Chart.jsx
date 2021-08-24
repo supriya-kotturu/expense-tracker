@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
 
 import ChartBar from "./ChartBar";
@@ -24,4 +24,4 @@ Chart.propTypes = {
   dataPoints: PropTypes.array,
 };
 
-export default Chart;
+export default memo(Chart);
