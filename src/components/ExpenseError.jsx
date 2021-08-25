@@ -1,11 +1,16 @@
-import PropTypes from "prop-types";
+import { memo, useContext } from "react";
 import { RiCloseCircleLine } from "react-icons/ri";
 
-const ExpenseError = ({ message, onCloseMessage }) => {
+import { resetMessage } from "../store";
+import { MessageContext } from "../RootProvider";
+
+const ExpenseError = () => {
+  const { message, messageDispatch } = useContext(MessageContext);
+
   let { title, description, type, showMessage } = message;
-  type = "ERROR";
+  type = "FAILURE";
   const containerClassName = `main-container border-2 flex justify-between a rounded-lg my-4 text-center  
-  ${type === "ERROR" && "border-red-600 text-red-600 bg-red-100"} 
+  ${type === "FAILURE" && "border-red-600 text-red-600 bg-red-100"} 
   ${type === "SUCCESS" && "border-green-500 text-green-500 bg-green-100"} 
   ${!showMessage && "hidden "}`;
 
@@ -16,7 +21,7 @@ const ExpenseError = ({ message, onCloseMessage }) => {
         <p>{description}</p>
       </div>
       <div className="text-xl">
-        <button onClick={onCloseMessage}>
+        <button onClick={() => messageDispatch(resetMessage())}>
           <RiCloseCircleLine />
         </button>
       </div>
@@ -24,9 +29,4 @@ const ExpenseError = ({ message, onCloseMessage }) => {
   );
 };
 
-ExpenseError.propTypes = {
-  message: PropTypes.object,
-  onCloseMessage: PropTypes.func,
-};
-
-export default ExpenseError;
+export default memo(ExpenseError);
