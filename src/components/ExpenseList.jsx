@@ -1,20 +1,26 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState, useContext, memo } from "react";
 
 import ExpenseFilter from "./ExpenseFilter";
 import ExpenseItem from "./ExpenseItem";
 import Card from "./UI/Card";
 import ExpenseChart from "./ExpenseChart";
 
-const ExpenseList = ({ expenses }) => {
+import { ExpenseListContext } from "../RootProvider";
+
+const ExpenseList = () => {
+  let { expenses } = useContext(ExpenseListContext);
   const [filteredYear, setFilteredYear] = useState("2021");
-  const filteredExpenses = expenses.filter(
-    (item) => item.date.getFullYear() === parseInt(filteredYear)
-  );
+
+  // console.log(expenses);
+  const filteredExpenses =
+    expenses &&
+    expenses.filter(
+      (item) => new Date(item.date).getFullYear() === parseInt(filteredYear)
+    );
 
   const handleFilterChange = (e) => {
     setFilteredYear(e.target.value);
-    console.log("here", filteredYear, filteredExpenses);
+    // console.log("here", filteredYear, filteredExpenses);
   };
 
   let expenseContent = (
@@ -49,8 +55,4 @@ const ExpenseList = ({ expenses }) => {
   );
 };
 
-ExpenseList.propTypes = {
-  expenses: PropTypes.array,
-};
-
-export default ExpenseList;
+export default memo(ExpenseList);

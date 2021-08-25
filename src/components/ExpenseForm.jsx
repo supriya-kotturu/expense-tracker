@@ -1,16 +1,22 @@
-import { useState, memo } from "react";
+import { useState, memo, useContext } from "react";
 import PropTypes from "prop-types";
 
 import FormInput from "./UI/FormInput";
 import errors from "../util/errors.json";
 import ExpenseDate from "./ExpenseDate";
 
-const ExpenseForm = ({ onSaveNewExpense, onCancelForm, onFormError }) => {
+import { MessageContext, ExpenseListContext } from "../RootProvider";
+import { setFailureMessage, resetMessage, addNewExpense } from "../store";
+
+const ExpenseForm = ({ onSaveNewExpense, onCancelForm }) => {
   const [userInput, setUserInput] = useState({
     expenseTitle: "",
     expenseAmount: "",
     expenseDate: "",
   });
+
+  const { messageDispatch } = useContext(MessageContext);
+  const { expensesDispatch } = useContext(ExpenseListContext);
 
   const handleExpenseTitle = (e) => {
     setUserInput({
@@ -38,13 +44,13 @@ const ExpenseForm = ({ onSaveNewExpense, onCancelForm, onFormError }) => {
     const { expenseAmount, expenseDate, expenseTitle } = userInput;
 
     if (!expenseAmount && !expenseDate && !expenseTitle)
-      onFormError(errors.noFormValuesError);
+      messageDispatch(setFailureMessage(errors.noFormValuesError));
     if (!expenseTitle && expenseAmount && expenseDate)
-      onFormError(errors.noTitleError);
+      messageDispatch(setFailureMessage(errors.noTitleError));
     else if (!expenseAmount && expenseTitle && ExpenseDate)
-      onFormError(errors.noAmountError);
+      messageDispatch(setFailureMessage(errors.noAmountError));
     else if (!expenseDate && expenseTitle && expenseAmount)
-      onFormError(errors.noDateError);
+      messageDispatch(setFailureMessage(errors.noDateError));
 
     const expenseData = {
       title: expenseTitle,
@@ -53,16 +59,17 @@ const ExpenseForm = ({ onSaveNewExpense, onCancelForm, onFormError }) => {
     };
 
     if (expenseTitle && expenseAmount && expenseDate) {
-      onSaveNewExpense(expenseData);
+      expensesDispatch(addNewExpense(expenseData));
+      // onSaveNewExpense(expenseData);
       setUserInput({
         expenseTitle: "",
         expenseAmount: "",
         expenseDate: "",
       });
-      onFormError(errors.clearFormError);
+      messageDispatch(resetMessage());
     }
 
-    console.log(expenseData);
+    // console.log(expenseData);
   };
 
   return (
