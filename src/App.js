@@ -1,78 +1,20 @@
-import { useState } from "react";
-import uuid from "react-uuid";
+import { useState, useCallback, memo } from "react";
 
 import ExpenseList from "./components/ExpenseList";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseError from "./components/ExpenseError";
+import RootProvider from "./RootProvider";
+
 function App() {
-  const [expenses, setExpenses] = useState([
-    {
-      title: "IceCream",
-      date: new Date(2021, 6, 10),
-      amount: 1200,
-    },
-    {
-      title: "Zomato Orders",
-      date: new Date(2021, 3, 11),
-      amount: 1254.55,
-    },
-    {
-      title: "Cab",
-      date: new Date(2021, 7, 10),
-      amount: 700,
-    },
-    {
-      title: "Lunch",
-      date: new Date(2021, 2, 10),
-      amount: 2400,
-    },
-    {
-      title: "VadaPav",
-      date: new Date(2021, 5, 10),
-      amount: 60,
-    },
-  ]);
-
-  const [message, setMessage] = useState({
-    title: "",
-    description: "",
-    type: "",
-    showMessage: false,
-  });
-
   const [formStatus, setFormStatus] = useState(false);
 
-  const handleSaveNewExpense = (expense) => {
-    const newExpense = {
-      ...expense,
-      id: uuid(),
-    };
-
-    setExpenses((previousExpenses) => [newExpense, ...previousExpenses]);
-  };
-
-  const handleCancelForm = () => {
+  const handleCancelForm = useCallback(() => {
     setFormStatus((previousFormStatus) => !previousFormStatus);
-  };
+  }, []);
 
-  const handleShowForm = () => {
+  const handleShowForm = useCallback(() => {
     setFormStatus(true);
-  };
-
-  const handleErrorMessage = (message) => {
-    setMessage(message);
-  };
-
-  const handleCloseMessage = () => {
-    setMessage((previousMessage) => {
-      return {
-        title: "",
-        description: "",
-        type: "",
-        showMessage: !previousMessage.showMessage,
-      };
-    });
-  };
+  }, []);
 
   const formContentClassNames = `main-container my-4 bg-medium-001 justify-center flex rounded-md text-white-001 ${
     formStatus && "hidden"
@@ -91,24 +33,18 @@ function App() {
   );
 
   if (formStatus) {
-    formContent = (
-      <ExpenseForm
-        onFormError={handleErrorMessage}
-        onSaveNewExpense={handleSaveNewExpense}
-        onCancelForm={handleCancelForm}
-      />
-    );
+    formContent = <ExpenseForm onCancelForm={handleCancelForm} />;
   }
 
   return (
-    <div className="App">
-      <header className="App-header font-serif text-secondary">
-        <ExpenseError message={message} onCloseMessage={handleCloseMessage} />
+    <RootProvider>
+      <div className="App font-serif text-secondary">
+        <ExpenseError />
         {formContent}
-        <ExpenseList expenses={expenses} />
-      </header>
-    </div>
+        <ExpenseList />
+      </div>
+    </RootProvider>
   );
 }
 
-export default App;
+export default memo(App);
