@@ -1,3 +1,4 @@
+import uuid from "react-uuid";
 import expenseAtionTypes from "./expensesActionTypes";
 
 export const initialState = {
@@ -19,19 +20,27 @@ function getUserExpenseList() {
     : JSON.parse(localStorage.getItem("userExpenseList"));
 }
 
-function setUserExpenseList(newUserExpense) {
+function setUserExpenseList(expense) {
+  const newUserExpense = {
+    ...expense,
+    id: uuid(),
+  };
   const currentUserExpenseList = getUserExpenseList();
-  console.log(newUserExpense, currentUserExpenseList);
+  currentUserExpenseList && setIsNewUserStaus(false);
+  // console.log(newUserExpense, currentUserExpenseList);
+
   if (currentUserExpenseList.length > 0) {
     //   there are expenses stored in the browser's localStorage
-    console.log("in if ", newUserExpense, currentUserExpenseList);
+    // console.log("in if ", newUserExpense, currentUserExpenseList);
     localStorage.setItem(
       "userExpenseList",
       JSON.stringify([newUserExpense, ...currentUserExpenseList])
     );
+    return [newUserExpense, ...currentUserExpenseList];
   } else {
-    console.log("in else :", newUserExpense, currentUserExpenseList);
+    // console.log("in else :", newUserExpense, currentUserExpenseList);
     localStorage.setItem("userExpenseList", JSON.stringify([newUserExpense]));
+    return [newUserExpense];
   }
 }
 
@@ -66,28 +75,23 @@ export function initExpenses() {
   ];
   if (isNewUser) {
     setIsNewUserStaus(true);
-    initialState.list.push(...defaultExpensesList);
+    return { list: defaultExpensesList };
   } else {
     const userExpenseListInLocalStorage = getUserExpenseList();
     setIsNewUserStaus(false);
 
     if (userExpenseListInLocalStorage.length === 0) {
-      initialState.list.push(...defaultExpensesList);
+      return { list: defaultExpensesList };
     } else {
-      initialState.list.push(...userExpenseListInLocalStorage);
+      return { list: userExpenseListInLocalStorage };
     }
   }
 }
 
 export default function expensesReducer(state, action) {
-  let newExpenseList = [];
   switch (action.type) {
-    case expenseAtionTypes.ADD_NEW_EXPENSES:
-      console.log(action.payload, state.list);
-      newExpenseList = [action.payload, ...state.list];
-      getIsNewUserStatus() && setIsNewUserStaus(false);
-      setUserExpenseList(action.payload);
-      return { list: newExpenseList };
+    case expenseAtionTypes.ADD_NEW_EXPENSE:
+      return { list: setUserExpenseList(action.payload) };
 
     case expenseAtionTypes.RESET_USER_EXPENSES:
       setIsNewUserStaus(true);
